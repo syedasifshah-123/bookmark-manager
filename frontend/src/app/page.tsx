@@ -46,7 +46,7 @@ export default function Home() {
     const handleAddBookmark = async (data: Partial<IBookmark>) => {
         if (editBookmark) {
             await bookmarksApi.update(editBookmark.id, data);
-            setEditBookmark(null);
+            setEditBookmark(null);  
         } else {
             await bookmarksApi.create(data);
         }
