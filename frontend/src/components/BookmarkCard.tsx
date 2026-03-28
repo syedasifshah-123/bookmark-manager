@@ -21,9 +21,15 @@ export default function BookmarkCard({ bookmark, onDelete, onEdit, index }: Prop
         catch { return []; }
     })();
 
-    const date = new Date(bookmark.created_at).toLocaleDateString('en-US', {
-        month: 'short', day: 'numeric', year: 'numeric',
-    });
+    const date = (() => {
+        const raw = bookmark.created_at;
+        if (!raw) return 'Unknown';
+        const normalized = typeof raw === 'string' ? raw.replace(' ', 'T') : raw;
+        const d = new Date(normalized);
+        return isNaN(d.getTime()) ? 'Unknown' : d.toLocaleDateString('en-US', {
+            month: 'short', day: 'numeric', year: 'numeric',
+        });
+    })();
 
     return (
         <motion.div

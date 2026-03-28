@@ -55,7 +55,7 @@ export default function Home() {
     const handleAddBookmark = async (data: Partial<IBookmark>) => {
         if (editBookmark) {
             await bookmarksApi.update(editBookmark.id, data);
-            setEditBookmark(null);  
+            setEditBookmark(null);
         } else {
             await bookmarksApi.create(data);
         }
@@ -101,7 +101,7 @@ export default function Home() {
                         <h1 className="font-semibold text-[16px] flex items-center gap-2">
                             {currentCategory ? (
                                 <>
-                                    <currentCategory.icon />
+                                    <span>{currentCategory.icon}</span>
                                     <span>{currentCategory.name}</span>
                                 </>
                             ) : (
