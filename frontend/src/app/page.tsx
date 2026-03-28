@@ -6,9 +6,18 @@ import Sidebar from '@/components/Sidebar';
 import BookmarkCard from '@/components/BookmarkCard';
 import AddBookmarkModal from '@/components/AddBookmarkModal';
 import AddCategoryModal from '@/components/AddCategoryModal';
+import LoginPage from '@/components/LoginPage';
 import { categoriesApi, bookmarksApi, Category, Bookmark as IBookmark } from '@/lib/api';
 
 export default function Home() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [authChecked, setAuthChecked] = useState(false);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('bm_auth');
+        setIsAuthenticated(token === 'authenticated');
+        setAuthChecked(true);
+    }, []);
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [bookmarks, setBookmarks] = useState<IBookmark[]>([]);
@@ -70,6 +79,9 @@ export default function Home() {
     };
 
     const currentCategory = categories.find(c => c.id === selectedCategory);
+
+    if (!authChecked) return null;
+    if (!isAuthenticated) return <LoginPage onLogin={() => setIsAuthenticated(true)} />;
 
     return (
         <div className="flex h-screen overflow-hidden bg-[var(--background)]">
