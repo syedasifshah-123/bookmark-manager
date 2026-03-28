@@ -1,11 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: "https://bookmark-manager-production-f86e.up.railway.app/api",
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
-
-
-console.log(process.env.NEXT_PUBLIC_API_URL);
 
 
 export interface Category {
